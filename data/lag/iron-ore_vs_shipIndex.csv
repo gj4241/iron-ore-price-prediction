@@ -1,10 +1,4 @@
-품목비교 Historical Data
-조회기간 :,2013-07-04 ~ 2018-07-03
-표시기준 :,Value(Price)로 표시
-순서 :,최근부터(DESC)
-병합기준 :,Lag
-[일간 기준]
-,"철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton","Baltic Dry Index (BDI)1985.01.04","Baltic Capesize Index (BCI)1999.03.01","Baltic Panamax Index (BPI)1998.05.06","Baltic Clean Tanker Index (BCTI)1998.08.03","Baltic Dirty Tanker Index (BDTI)1998.08.03","Baltic Supramax index (BSI)2005.01.01","Baltic Handysize Index (BHSI)2006.05.23","SSY/Pacific Capesize Index1997.1.6=4114","SSY/Atlantic Capesize Index1997.1.6=5000","Howe Robinson Container Index1997.1.15=1000","China Containerized Freight Index (CCFI)1998.1.1=1000","Shanghai Containerized Freight Index (SCFI)2009.10.16=1000","China Coastal Bulk Freight Index (CBFI)2000.1.1=1000","China Newbuilding Price Index (CNPI)2011.07.01=1000","China Bulker Newbuilding Price Index (CNDPI)2011.07.01=1000","China Tanker Newbuilding Price Index (CNTPI)2011.07.01=1000","China Container Newbuilding Price Index (CNCPI)2011.07.01=1000"
+,철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton,Baltic Dry Index (BDI)1985.01.04,Baltic Capesize Index (BCI)1999.03.01,Baltic Panamax Index (BPI)1998.05.06,Baltic Clean Tanker Index (BCTI)1998.08.03,Baltic Dirty Tanker Index (BDTI)1998.08.03,Baltic Supramax index (BSI)2005.01.01,Baltic Handysize Index (BHSI)2006.05.23,SSY/Pacific Capesize Index1997.1.6=4114,SSY/Atlantic Capesize Index1997.1.6=5000,Howe Robinson Container Index1997.1.15=1000,China Containerized Freight Index (CCFI)1998.1.1=1000,Shanghai Containerized Freight Index (SCFI)2009.10.16=1000,China Coastal Bulk Freight Index (CBFI)2000.1.1=1000,China Newbuilding Price Index (CNPI)2011.07.01=1000,China Bulker Newbuilding Price Index (CNDPI)2011.07.01=1000,China Tanker Newbuilding Price Index (CNTPI)2011.07.01=1000,China Container Newbuilding Price Index (CNCPI)2011.07.01=1000
 20180703,64.55,1476,2478,1336,501,702,1025,571,4997,8625,842,815.89,821.18,1105.5,801,828,855,821
 20180702,64.54,1422,2304,1338,500,705,1034,575,4997,8625,842,815.89,821.18,1105.5,801,828,855,821
 20180630,65.02,1385,2170,1336,496,712,1042,581,4977,8038,842,815.89,821.18,1105.5,801,828,855,821

@@ -38,7 +38,10 @@ def main():
     
     result = pd.concat([main_index_1,main_index_2,ship_index,exchange_index],
                    axis=1)
-    # save datFrame
+    # 철광석 가격이 nan아닌것만 저장.
+    result = result.loc[~result.iloc[:,1].isnull(),:]
+    # save dataFrame
+    print("saving data...")
     result.to_csv(os.path.join(save_dir,'ironOre_vs_allIndex.csv'),
                   encoding='euc-kr')
     
