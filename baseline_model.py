@@ -20,7 +20,7 @@ def baseline_model(timesteps=20,data_dim=1):
         data_dim: int, dimensions of input
     """
     
-    main_input = Input(shape=(20,1),dtype='float64',name='main_input')
+    main_input = Input(shape=(timesteps,data_dim),dtype='float32',name='main_input')
     X = GRU(32,return_sequences=True,
             input_shape=(timesteps,data_dim))(main_input)
     X = GRU(32,return_sequences=True)(X)
