@@ -14,13 +14,15 @@ import os
 import pandas as pd
 
 
-def train_test_split():
+def train_test_split(data_dir):
     """
     'ironOre.csv' 데이터를 2018년 5월 이전과 이후로 나눠 저장합니다.
     """
-    data_dir = '../data/baseline_model'
+    
     data_path = os.path.join(data_dir,'ironOre.csv')
-    df = pd.read_csv(data_path,encoding='euc_kr')
+    df = pd.read_csv(data_path)
+    df[['날짜']] = pd.to_datetime(df['날짜'],format='%Y%m%d')
+    df.set_index('날짜',inplace=True)
     before_may = df.loc[df.index < pd.datetime(2018,5,1),:]
     after_may = df.loc[df.index >= pd.datetime(2018,5,1),:]
     before_may.to_csv(os.path.join(data_dir,'train.csv'))
