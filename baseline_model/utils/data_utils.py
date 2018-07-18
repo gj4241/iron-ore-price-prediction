@@ -23,6 +23,7 @@ def train_test_split(data_dir):
     df = pd.read_csv(data_path)
     df[['날짜']] = pd.to_datetime(df['날짜'],format='%Y%m%d')
     df.set_index('날짜',inplace=True)
+    
     before_may = df.loc[df.index < pd.datetime(2018,5,1),:]
     after_may = df.loc[df.index >= pd.datetime(2018,5,1),:]
     before_may.to_csv(os.path.join(data_dir,'train.csv'))

@@ -68,6 +68,7 @@ def test():
     ## 
     plt.plot(test_set_series,label='test_set')
     plt.plot(yhat_df,label='predict')
+    plt.legend()
     plt.show()
     
 #    test_X = test_X.reshape((test_X.shape[0], test_X.shape[2]))

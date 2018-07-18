@@ -17,6 +17,7 @@ from baseline_model import baseline_model
 from utils.data_utils import train_test_split,series_to_supervised
 from keras.callbacks import TensorBoard
 from keras.optimizers import Adam
+from keras.models import load_model
 
 data_dir = 'data/baseline_model'
 log_dir = 'log/baseline_model'
@@ -24,8 +25,8 @@ log_dir = 'log/baseline_model'
 timeSteps = 20
 data_dim = 1
 
-learning_rate = 0.001
-epochs = 100
+learning_rate = 0.0005
+epochs = 1000
 batch_size = 32
 
 hparams={
@@ -55,7 +56,10 @@ def train(hparams=hparams):
             valid_indices::,range(20,25)]
     
     #load model
-    model = baseline_model(timeSteps,data_dim)
+    if os.path.exists(os.path.join(log_dir,'baseline_model.h5')):
+        model = load_model(os.path.join(log_dir,'baseline_model.h5'))
+    else:
+        model = baseline_model(timeSteps,data_dim)
     
     #compile model with hparams
     optimizer = hparams['optimizer']
