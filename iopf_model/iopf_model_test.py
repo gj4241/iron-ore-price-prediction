@@ -25,8 +25,8 @@ def test():
     data_dim = test_set.shape[1]
 
     test_sup = series_to_supervised(test_set,time_steps,1)
-    test_X = test_sup.iloc[:,:200].values.reshape((-1,time_steps,data_dim))
-    test_X = mmsc.fit_transform(test_X)
+    test_X = test_sup.iloc[:,:200].values
+    test_X = mmsc.fit_transform(test_X).reshape((-1,time_steps,data_dim))
     test_y = test_sup.iloc[:,200].values
 
     print("test_X.shape = ",test_X.shape)
