@@ -19,15 +19,17 @@ log_dir = 'log/iopf_model'
 def test():
     test_set = pd.read_csv('data/testset1.csv',index_col=0)
     mmsc = MinMaxScaler()
-    test_set = mmsc.fit_transform(test_set)
+
 
     time_steps = 20
     data_dim = test_set.shape[1]
 
     test_sup = series_to_supervised(test_set,time_steps,1)
-    test_X = test_sup.iloc[:,:200].values.reshape((-1,time_steps,data_dim))
+    test_X = test_sup.iloc[:,:200].values
+    test_X = mmsc.fit_transform(test_X).reshape((-1,time_steps,data_dim))
     test_y = test_sup.iloc[:,200].values
-    mmsc.fit(test_y)
+
+    mmsc.fit(test_y.reshape((-1,1)))
 
     print("test_X.shape = ",test_X.shape)
     print("test_y.shape = ",test_y.shape)
@@ -36,14 +38,15 @@ def test():
     model = load_model(os.path.join(log_dir,'iopf_model.h5'))
     print(model.summary())
     pred_y = model.predict(test_X)
-    pred_y = mmsc.inverse_transform(pred_y)
+    pred_y = mmsc.inverse_transform(pred_y.reshape((-1,1)))
     print("prediction: ",pred_y)
     rmse = np.sqrt(mean_squared_error(pred_y,test_y))
     print("RMSE = ",rmse)
+    test_y
 
     plt.plot(test_y,label='test')
-    plt.plot(pred_y,label='prediction')
-    plt.title('RMSE = ',rmse)
+    plt.plot(pred_y.reshape(-1),label='prediction')
+    plt.title('RMSE = {:3f}'.format(rmse))
     plt.legend()
     plt.show()
 

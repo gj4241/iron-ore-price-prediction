@@ -17,8 +17,6 @@ def iopf_model(timesteps,outlen=1,data_dim=1):
     X = GRU(128)(X)
     X = Dense(64,activation='relu')(X)
     X = Dropout(0.5)(X)
-    X = Dense(32,activation='relu')(X)
-    X = Dropout(0.5)(X)
     X = Dense(16,activation='relu')(X)
     X = Dropout(0.5)(X)
 

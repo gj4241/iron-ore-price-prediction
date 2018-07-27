@@ -22,11 +22,12 @@ log_dir = 'log/iopf_model'
 
 time_steps = 20
 batch_size = 32
-epochs = 100
+epochs = 200
 
 hparams = {'optimizer':'adam',
            'loss':'mse',
            'learning_rate':0.001,
+           'decay':0.01
            }
 
 def train(hparams = hparams):
@@ -51,8 +52,10 @@ def train(hparams = hparams):
 
     #load model or create new
     if os.path.exists(os.path.join(log_dir,'iopf_model.h5')):
+        print("loading pre-trained model...")
         model = load_model(os.path.join(log_dir,'iopf_model.h5'))
     else:
+        print("Compile new model...")
         model = iopf_model(time_steps,1,data_dim)
 
 
@@ -60,7 +63,7 @@ def train(hparams = hparams):
     optimizer = hparams['optimizer']
 
     if optimizer == 'adam':
-        optimizer = Adam(lr=hparams['learning_rate'],decay=0.0)
+        optimizer = Adam(lr=hparams['learning_rate'],decay=hparams['decay'])
     loss = hparams['loss']
     model.compile(optimizer=optimizer,loss=loss)
 
