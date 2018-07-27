@@ -41,19 +41,19 @@ def train(hparams = hparams):
     # save test set
     test_set.to_csv(os.path.join(data_dir,'testset1.csv'))
     mmsc = MinMaxScaler()
+    train_set = mmsc.fit_transform(train_set)
 
     data_dim = train_set.shape[1]
 
     train_sup = series_to_supervised(train_set,time_steps,1)
-    train_X = train_sup.iloc[:,:200].values
-    train_X = mmsc.fit_transform(train_X).reshape((-1,time_steps,data_dim))
+    train_X = train_sup.iloc[:,:200].values.reshape((-1,time_steps,data_dim))
     train_y = train_sup.iloc[:,200]
 
     #load model or create new
-    #if os.path.exists(os.path.join(log_dir,'iopf_model.h5')):
-    #    model = load_model(os.path.join(log_dir,'iopf_model.h5'))
-    #else:
-    model = iopf_model(time_steps,1,data_dim)
+    if os.path.exists(os.path.join(log_dir,'iopf_model.h5')):
+        model = load_model(os.path.join(log_dir,'iopf_model.h5'))
+    else:
+        model = iopf_model(time_steps,1,data_dim)
 
 
 
