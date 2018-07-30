@@ -19,9 +19,9 @@ def main():
                     encoding='euc-kr',skiprows=6,parse_dates=['Unnamed: 0'])
     df_3 = pd.read_csv('../raw_data_weekly/2.csv',
                     encoding='euc-kr',skiprows=6,parse_dates=['Unnamed: 0'])
-    #df_5 = pd.read_csv('../raw_data_weekly/환율_주간.csv',
-    #                encoding='euc-kr',skiprows=6,parse_dates=['Unnamed: 0'],
-    #                engine='python')
+    df_5 = pd.read_csv('../raw_data_weekly/환율_주간.csv',
+                    encoding='euc-kr',skiprows=6,parse_dates=['Unnamed: 0'],
+                    engine='python')
     df_7 = pd.read_csv('../raw_data_weekly/600019.SS.csv',
                     encoding='euc-kr',parse_dates=['Date'])
     df_8 = pd.read_csv('../raw_data_weekly/000709.SZ.csv',
@@ -58,7 +58,7 @@ def main():
 
     df1 = pd.merge(df_1,df_2,on=['Unnamed: 0', '철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton'])
     df2 = pd.merge(df1,df_3,on=['Unnamed: 0', '철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton'])
-    #df3 = pd.merge(df2,df_5,on=['Unnamed: 0', '철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton'])
+    df3 = pd.merge(df2,df_5,on=['Unnamed: 0', '철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton'])
     df=df3
     df_stock_china.Date= df_stock_china.Date + datetime.timedelta(days=1)
     df_stock_world.Date= df_stock_world.Date + datetime.timedelta(days=1)
@@ -108,7 +108,7 @@ def main():
            'CNY/KRW (중국 인민폐 / 한국 원)', 'USD/RMB (미국 달러 / 중국 인민폐)']
     df=pd.merge(df_stock_world,df,on='Date',how='right')
     df=pd.merge(df_stock_china,df,on='Date',how='right')
-    df.to_csv(('total.csv'),encoding='euc-kr')
+    df.to_csv(('../data/raw_data_weekly_merged.csv'),encoding='euc-kr',index=False)
 
 if __name__ =="__main__":
     main()
