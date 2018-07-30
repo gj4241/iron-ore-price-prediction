@@ -11,7 +11,7 @@ import os
 
 import pandas as pd
 
-raw_data_dir = '../raw_data'
+raw_data_dir = '../raw_data_daily'
 def merge_data():
     print("merging datasets...")
     dfs = pd.DataFrame(columns=['날짜'])
