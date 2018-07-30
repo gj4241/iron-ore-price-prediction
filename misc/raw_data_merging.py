@@ -22,11 +22,11 @@ def merge_data():
             df.columns = ['날짜',df.columns[1]]
             if df.shape[0]>2000:
                 dfs = pd.merge(dfs,df,'outer')
-            
+
     df = dfs.dropna()
     print('saving dataset...')
-    df.to_csv('../data/raw_data_merged.csv')
+    df.to_csv('../data/raw_data_merged.csv',index=False,encoding='utf-8')
     print("DONE!!")
-    
+
 if __name__=='__main__':
     merge_data()
