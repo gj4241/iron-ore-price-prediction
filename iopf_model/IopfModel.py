@@ -7,25 +7,16 @@ Created on Mon Jul 30 17:25:22 2018
 @author: kkalla
 """
 
-import argparse
 
 from keras.layers import Input, GRU, Dense, Dropout
 from keras.models import Model,load_model
 from keras.optimizers import SGD,Adam
 from keras.callbacks import TensorBoard
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-m','--model_path',type=str,
-                    help="file path of pretrained model",
-                    default="log/IopfModel.h5")
-parser.add_argument("-l","--log_dir",type=str,
-                    help="Directory path to save logs",
-                    default="log")
-
-args = parser.parse_args()
 
 class IopfModel():
     def __init__(self,
+                 model_path=None,
                  is_pre_trained = False,
                  timesteps=1,
                  out_len=1,
@@ -37,6 +28,7 @@ class IopfModel():
                  momentum=0
                  ):
 
+        self.model_path = model_path
         self.is_pre_trained = is_pre_trained
         self.timesteps=timesteps
         self.out_len=out_len
@@ -60,10 +52,11 @@ class IopfModel():
 
         self.model = Model(inputs=main_input,outputs=main_output)
 
-    def train(self,input_X,output_Y,epochs=200,batch_size=32,save_model=True):
+    def train(self,input_X,output_Y,epochs=200,batch_size=32,
+              save_model=True,log_dir='log'):
         # If there is a pre-trained model, load it.
         if self.is_pre_trained:
-            model = load_model(args.model_path)
+            model = load_model(self.model_path)
         else:
             self.build()
             model = self.model
@@ -82,7 +75,7 @@ class IopfModel():
         print("="*50)
         print(model.summary())
 
-        callbacks=[TensorBoard(log_dir=args.log_dir)]
+        callbacks=[TensorBoard(log_dir=log_dir)]
 
         history = model.fit(input_X,output_Y,
                             epochs=epochs,
@@ -93,4 +86,4 @@ class IopfModel():
 
         print("Saving model...")
         if save_model:
-            model.save(args.model_path)
+            model.save(self.model_path)
