@@ -119,9 +119,11 @@ model.add(LSTM(
 model.add(Dropout(0.2))
 model.add(Dense(
     output_dim=1))
-model.add(Activation(PReLU()))############sigmoid,tanh,relu,Leakyrelu,LeakyRelu(alpha = 0.001),PReLU()
+model.add(PReLU())############sigmoid,tanh,relu,Leakyrelu,LeakyRelu(alpha = 0.001),PReLU()
 optimizer = Adam(lr=0.0001,decay=1e-6)
 model.compile(loss='mse', optimizer=optimizer,metrics=['accuracy'])
+if os.path.exists('log/stock_price_pred_model.h5'):
+    model = load_model('log/stock_price_pred_model.h5')
 
 #============================================================================================================================================================
 #fit에 사용되는 valid값 저장
@@ -206,3 +208,4 @@ if args.mode == 'test':
     plt.plot(real,label='real')
     plt.plot(result,label='pred')
     plt.legend()
+    plt.show()
