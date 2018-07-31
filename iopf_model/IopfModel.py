@@ -12,7 +12,7 @@ from keras.layers import Input, GRU, Dense, Dropout
 from keras.models import Model,load_model
 from keras.optimizers import SGD,Adam
 from keras.callbacks import TensorBoard
-
+from keras.utils import plot_model
 
 class IopfModel():
     def __init__(self,
@@ -38,10 +38,11 @@ class IopfModel():
         self.loss = loss
         self.optimizer = optimizer
 
+
     def build(self):
         main_input = Input(shape=(self.timesteps,self.data_dim),
-                           dtype='flaot32',name='main_input')
-        X = GRU(128, return_sequence = True,
+                           dtype='float32',name='main_input')
+        X = GRU(128, return_sequences = True,
                 input_shape=(self.timesteps,self.data_dim))(main_input)
         X = GRU(128)(X)
         X = Dense(64, activation='relu')(X)
@@ -53,7 +54,8 @@ class IopfModel():
         self.model = Model(inputs=main_input,outputs=main_output)
 
     def train(self,input_X,output_Y,epochs=200,batch_size=32,
-              save_model=True,log_dir='log'):
+              save_model=True,log_dir='log',
+              validation_split=0.1):
         # If there is a pre-trained model, load it.
         if self.is_pre_trained:
             model = load_model(self.model_path)
@@ -80,10 +82,24 @@ class IopfModel():
         history = model.fit(input_X,output_Y,
                             epochs=epochs,
                             batch_size=batch_size,
-                            callbacks = callbacks)
+                            callbacks = callbacks,
+                            validation_split=validation_split)
 
         self.history = history
 
         print("Saving model...")
         if save_model:
             model.save(self.model_path)
+            plot_model(model,to_file='IopfModel.png')
+
+
+
+    def test(self,test_X,test_Y,sc):
+        # If there is a pre-trained model, load it.
+        if self.is_pre_trained:
+            model = load_model(self.model_path)
+
+        pred_Y = model.predict(test_X)
+        #pred_Y = sc.inverse_transform(pred_Y.reshape((-1,1)))
+
+        return pred_Y
