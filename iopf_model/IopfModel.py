@@ -17,7 +17,7 @@ from keras.utils import plot_model
 class IopfModel():
     def __init__(self,
                  model_path=None,
-                 is_pre_trained = False,
+                 is_pretrained = False,
                  timesteps=1,
                  out_len=1,
                  data_dim=1,
@@ -29,7 +29,7 @@ class IopfModel():
                  ):
 
         self.model_path = model_path
-        self.is_pre_trained = is_pre_trained
+        self.is_pretrained = is_pretrained
         self.timesteps=timesteps
         self.out_len=out_len
         self.data_dim=data_dim
@@ -57,7 +57,7 @@ class IopfModel():
               save_model=True,log_dir='log',
               validation_split=0.1):
         # If there is a pre-trained model, load it.
-        if self.is_pre_trained:
+        if self.is_pretrained:
             model = load_model(self.model_path)
         else:
             self.build()
@@ -96,7 +96,7 @@ class IopfModel():
 
     def test(self,test_X,test_Y,sc):
         # If there is a pre-trained model, load it.
-        if self.is_pre_trained:
+        if self.is_pretrained:
             model = load_model(self.model_path)
 
         pred_Y = model.predict(test_X)

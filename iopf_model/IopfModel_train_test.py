@@ -56,7 +56,7 @@ def main():
                           out_len=args.output_len,
                           data_dim=data_dim,
                           model_path = args.model_path,
-                          is_pre_trained = args.is_pretrained
+                          is_pretrained = args.is_pretrained
                           )
     if args.mode=='train':
         print("begin training...")
