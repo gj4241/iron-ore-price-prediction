@@ -68,6 +68,12 @@ def main():
         plt.show()
     elif args.mode=='test':
         print("begin test...")
+        iopfModel = IopfModel(timesteps=args.timesteps,
+                          out_len=args.output_len,
+                          data_dim=data_dim,
+                          model_path = args.model_path,
+                          is_pretrained = True
+                          )
         pred_Y = iopfModel.test(test_X,test_Y,sc)
         #test_Y = sc.inverse_transform(test_Y.values.reshape((-1,1)))
 
