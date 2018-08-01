@@ -8,10 +8,12 @@ Created on Wed Aug  1 20:38:12 2018
 import pandas as pd
 
 def main():
-    fvj = pd.read_csv('raw_data_daily/FVJ.SG.csv',parse_dates=['Date'])
-    fmg = pd.read_csv('raw_data_daily/FMG.AX.csv',parse_dates=['Date'])
-    pds = pd.read_csv('raw_data_daily/pds변수.csv',engine='python',skiprows=6,
-                      parse_dates=['Date'])
+    fvj = pd.read_csv('../raw_data_daily/FVJ.SG.csv',
+            parse_dates=['Date'])
+    fmg = pd.read_csv('../raw_data_daily/FMG.AX.csv',
+            parse_dates=['Date'])
+    pds = pd.read_csv('../raw_data_daily/pds변수.csv',
+            engine='python',skiprows=6,parse_dates=['Date'])
 
     fvj_close = fvj[['Date','Close']].set_index('Date')
     fmg_close = fmg[['Date','Close']].set_index('Date')
@@ -28,7 +30,7 @@ def main():
     target_notna_indices = result.iloc[:,2].notna()
     result = result.loc[target_notna_indices,:]
 
-    result.to_csv('data/train_data_weekly.csv')
+    result.to_csv('../data/train_data_weekly.csv')
 
 if __name__=="__main__":
     main()
