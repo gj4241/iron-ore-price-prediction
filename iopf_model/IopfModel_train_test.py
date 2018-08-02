@@ -66,7 +66,7 @@ def main():
     if args.mode=='train':
         print("begin training...")
         iopfModel.train(train_X,train_Y,log_dir=args.log_dir,
-                        batch_size=int(train_X.shape[0]/5),epochs=1000)
+                        batch_size=int(train_X.shape[0]/5),epochs=500)
 
         plt.plot(iopfModel.history.history['loss'],label='train')
         plt.plot(iopfModel.history.history['val_loss'],label='valid')
