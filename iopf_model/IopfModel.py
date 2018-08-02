@@ -97,7 +97,6 @@ class IopfModel():
         print("Saving model...")
         if save_model:
             model.save(self.model_path)
-            model.save(self.model_path[:-2]+self.history.history['loss'][-1]+'.h5')
             plot_model(model,to_file='IopfModel.png')
 
 

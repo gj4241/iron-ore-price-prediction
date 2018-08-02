@@ -93,14 +93,20 @@ def data_preprocess(df):
     a = df.target[1:]
     a = a.reset_index(drop=True)
     df_table['target_5'] = a
-    df_table.dropna(inplace=True)
-    df_table.reset_index(drop=True,inplace=True)
+
 
     ma1 = df_table.rolling(window=5).mean().fillna(df_table.rolling(window=5).mean().mean())['Bloomberg(DJ-UBS) Commodity Index1991=100']
     ma2 = df_table.rolling(window=5).mean().fillna(df_table.rolling(window=5).mean().mean())['Bloomberg Commodity Total Return1991=100']
     ma3 = df_table.rolling(window=5).mean().fillna(df_table.rolling(window=5).mean().mean())['전기동 [LME] 현물USD/ton']
     ma4 = df_table.rolling(window=5).mean().fillna(df_table.rolling(window=5).mean().mean())['니켈 [LME] 현물USD/ton']
     ma5 = df_table.rolling(window=5).mean().fillna(df_table.rolling(window=5).mean().mean())['Rogers International Commodities Index Metals1998.07.31=1000']
+    df_table.dropna(inplace=True)
+    df_table.reset_index(drop=True,inplace=True)
+    df_table.drop('Bloomberg(DJ-UBS) Commodity Index1991=100',1,inplace=True)
+    df_table.drop('Bloomberg Commodity Total Return1991=100',1,inplace=True)
+    df_table.drop('전기동 [LME] 현물USD/ton',1,inplace=True)
+    df_table.drop('니켈 [LME] 현물USD/ton',1,inplace=True)
+    df_table.drop('Rogers International Commodities Index Metals1998.07.31=1000',1,inplace=True)
 
     df_table['ma1']= ma1
     df_table['ma2']= ma2
