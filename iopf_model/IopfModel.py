@@ -8,7 +8,8 @@ Created on Mon Jul 30 17:25:22 2018
 """
 
 
-from keras.layers import Input, GRU, Dense, Dropout
+from keras.layers import Input, GRU, Dense, Dropout, BatchNormalization,\
+Activation
 from keras.models import Model,load_model
 from keras.optimizers import SGD,Adam
 from keras.callbacks import TensorBoard
@@ -42,14 +43,20 @@ class IopfModel():
     def build(self):
         main_input = Input(shape=(self.timesteps,self.data_dim),
                            dtype='float32',name='main_input')
+        X = BatchNormalization()(main_input)
+        X = Activation('relu')(X)
+        X = Dropout(0.8)(X)
         X = GRU(128, return_sequences = True,
-                input_shape=(self.timesteps,self.data_dim))(main_input)
-        X = GRU(128)(X)
-        X = Dense(64, activation='relu')(X)
-        X = Dropout(0.5)(X)
+                input_shape=(self.timesteps,self.data_dim),
+                dropout=0.8)(X)
+        X = BatchNormalization()(X)
+        X = GRU(128,dropout=0.8)(X)
+        X = BatchNormalization()(X)
+        X = Dropout(0.8)(X)
         X = Dense(16, activation = 'relu')(X)
         X = Dropout(0.5)(X)
-        main_output = Dense(self.out_len,name='main_output')(X)
+        main_output = Dense(self.out_len,name='main_output',
+                            activation='sigmoid')(X)
 
         self.model = Model(inputs=main_input,outputs=main_output)
 
@@ -100,6 +107,6 @@ class IopfModel():
             model = load_model(self.model_path)
 
         pred_Y = model.predict(test_X)
-        #pred_Y = sc.inverse_transform(pred_Y.reshape((-1,1)))
+        pred_Y = sc.inverse_transform(pred_Y.reshape((-1,1)))
 
         return pred_Y
