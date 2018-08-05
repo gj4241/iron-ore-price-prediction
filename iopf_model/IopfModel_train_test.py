@@ -91,6 +91,7 @@ def main():
 
         plt.plot(test_Y,label='true')
         plt.plot(pred_Y,label='prediction')
+        plt.title('rmse = {:3f}'.format(rmse))
         plt.legend()
         plt.show()
 
