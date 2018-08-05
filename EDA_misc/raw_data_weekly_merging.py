@@ -19,17 +19,17 @@ def main():
                     encoding='euc-kr',skiprows=6,parse_dates=['Unnamed: 0'])
     df_3 = pd.read_csv('../raw_data_weekly/2.csv',
                     encoding='euc-kr',skiprows=6,parse_dates=['Unnamed: 0'])
-    df_5 = pd.read_csv('../raw_data_weekly/환율_주간.csv',
+    df_4 = pd.read_csv('../raw_data_weekly/환율_주간.csv',
                     encoding='euc-kr',skiprows=6,parse_dates=['Unnamed: 0'],
                     engine='python')
-    df_7 = pd.read_csv('../raw_data_weekly/600019.SS.csv',
+    df_5 = pd.read_csv('../raw_data_weekly/600019.SS.csv',
                     encoding='euc-kr',parse_dates=['Date'])
-    df_8 = pd.read_csv('../raw_data_weekly/000709.SZ.csv',
+    df_6 = pd.read_csv('../raw_data_weekly/000709.SZ.csv',
                     encoding='euc-kr',parse_dates=['Date'])
 
-    df_7=df_7[['Date','Close']]
-    df_8=df_8['Close']
-    df_stock_china= pd.concat([df_7,df_8],axis=1)
+    df_5=df_5[['Date','Close']]
+    df_6=df_6['Close']
+    df_stock_china= pd.concat([df_5,df_6],axis=1)
     df_stock_china.columns=['Date','Baoshan','Hbis']
 
     df_stock_1=pd.read_csv('../raw_data_weekly/FMG.AX.csv',
@@ -58,7 +58,7 @@ def main():
 
     df1 = pd.merge(df_1,df_2,on=['Unnamed: 0', '철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton'])
     df2 = pd.merge(df1,df_3,on=['Unnamed: 0', '철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton'])
-    df3 = pd.merge(df2,df_5,on=['Unnamed: 0', '철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton'])
+    df3 = pd.merge(df2,df_4,on=['Unnamed: 0', '철광석 Fines (Daily) [중국(수입가 CFR)] 현물USD/ton'])
     df=df3
     df_stock_china.Date= df_stock_china.Date + datetime.timedelta(days=1)
     df_stock_world.Date= df_stock_world.Date + datetime.timedelta(days=1)
