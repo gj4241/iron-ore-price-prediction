@@ -12,7 +12,7 @@ import os,re
 
 import pandas as pd
 
-data_dir = '../raw_data'
+data_dir = '../raw_data_daily'
 
 def main():
     file_name_list = os.listdir(data_dir)
@@ -25,9 +25,10 @@ def main():
             file_path = os.path.join(data_dir,file_name)
             colname = pd.read_csv(file_path, engine='python',
                               skiprows=6).columns.values
-            colnames_list.append(colname[1])
-            new_file_name = re.sub('[/]',',',colname[1]) + '.csv' #'/'제
-            os.rename(file_path,os.path.join(data_dir,new_file_name))
+            if len(colname) < 3:
+                colnames_list.append(colname[1])
+                new_file_name = re.sub('[/]',',',colname[1]) + '.csv' #'/'제
+                os.rename(file_path,os.path.join(data_dir,new_file_name))
     
     print('DONE!!')
     print(colnames_list)

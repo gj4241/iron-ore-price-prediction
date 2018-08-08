@@ -19,8 +19,8 @@ from keras.callbacks import TensorBoard
 from keras.optimizers import Adam
 from keras.models import load_model
 
-data_dir = 'data/baseline_model'
-log_dir = 'log/baseline_model'
+data_dir = 'data'
+log_dir = 'log'
 
 timeSteps = 20
 data_dim = 1
