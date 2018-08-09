@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+일별 데이터를 불러와서 train_data_weekly.csv 생성
+
 Created on Wed Aug  1 20:38:12 2018
 
-@author: user
+@author: kkalla
 """
 
 import pandas as pd
