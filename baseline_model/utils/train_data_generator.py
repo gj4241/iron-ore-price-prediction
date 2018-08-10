@@ -11,11 +11,11 @@ import os
 
 import pandas as pd
 
-save_dir = '../data/baseline_model'
+save_dir = '../data'
 file_name = 'ironOre.csv'
 
 def main():
-    raw_data = pd.read_csv('../주요철강가격 통합.csv',usecols=[0,1],
+    raw_data = pd.read_csv('../data/주요철강가격 통합.csv',usecols=[0,1],
                            encoding='euc_kr',engine='python')
     raw_data.sort_values('날짜',inplace=True)
     raw_data.set_index('날짜',inplace=True)
