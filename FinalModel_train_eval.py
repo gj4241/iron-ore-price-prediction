@@ -45,7 +45,7 @@ def main():
 
     # train xgb model
     if args.mode == 'train':
-        finalModel.train(trainX,trainY)
+        finalModel.train(trainX,trainY,num_round=6000)
         # pickle xgb model
         if args.model_dir is not None:
             print("saving xgb model...")
