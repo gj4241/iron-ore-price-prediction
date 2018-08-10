@@ -45,9 +45,11 @@ class FinalModel():
 
     def evaluate(self,validX,validY):
         print("evaluating xgb model...")
-        predY = self.bst.predict(validX)
-
+        dvalid = xgb.DMatrix(validX,feature_names=validX.columns.values)
+        predY = self.bst.predict(dvalid)
+        validY = validY.values
         rmse = np.sqrt(mean_squared_error(predY,validY))
+
 
         plt.plot(predY, label='prediction')
         plt.plot(validY, label='true')
@@ -58,4 +60,7 @@ class FinalModel():
     def inference(self,X):
         predY = self.bst.predict(X)
         print(predY)
+
+    def set_bst(self,bst):
+        self.bst=bst
 
