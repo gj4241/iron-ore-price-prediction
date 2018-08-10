@@ -2,7 +2,7 @@
 """
 Created on Mon Aug  6 19:19:28 2018
 
-@author: user
+@author: kkalla, gj4241
 """
 
 import numpy as np
@@ -28,6 +28,9 @@ class FinalModel():
         self.silent = silent
         self.eval_metric = eval_metric
 
+    def set_bst(self,bst):
+        self.bst=bst
+
     def train(self,trainX,trainY,num_round=5000):
         dtrain = xgb.DMatrix(trainX,trainY,feature_names=trainX.columns.values)
         params = {
@@ -45,9 +48,11 @@ class FinalModel():
 
     def evaluate(self,validX,validY):
         print("evaluating xgb model...")
-        predY = self.bst.predict(validX)
-
+        dvalid = xgb.DMatrix(validX,feature_names=validX.columns.values)
+        predY = self.bst.predict(dvalid)
+        validY = validY.values
         rmse = np.sqrt(mean_squared_error(predY,validY))
+
 
         plt.plot(predY, label='prediction')
         plt.plot(validY, label='true')
@@ -55,7 +60,10 @@ class FinalModel():
         plt.legend()
         plt.show()
 
-    def inference(self,X):
-        predY = self.bst.predict(X)
+    def inference(self,X,feature_names):
+        dinput = xgb.DMatrix(X,feature_names=feature_names)
+        predY = self.bst.predict(dinput)
         print(predY)
+
+
 
